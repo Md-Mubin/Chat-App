@@ -1,5 +1,5 @@
 import './Register.css'
-import React, { useState, CSSProperties  } from 'react'
+import React, { useState } from 'react'
 import { RiArrowRightWideLine } from 'react-icons/ri'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from 'firebase/auth'
@@ -32,17 +32,17 @@ const Register = ({ slideBack }) => {
         if (!formData.rePassword) {
             setFormError((prev) => ({ ...prev, rePasswordError: "Please Re-Enter The Password" }))
         }
-        if (formData.rePassword != "" && formData.rePassword != formData.password) {
+        if (formData.password !== formData.rePassword) {
             setFormError((prev) => ({ ...prev, rePasswordError: "Re-Enter The Password Correctly" }))
-        } else {
+        } 
+        if (formData.userName && formData.email && formData.password && formData.password === formData.rePassword){
+            setSpiner(true)
             
             // create users in firebase
             createUserWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
                     // Signed up 
-                    setSpiner(true)
                     const user = userCredential.user;
-                    console.log(user)
 
                     updateProfile(auth.currentUser, {
                         displayName: formData.userName,
@@ -91,6 +91,7 @@ const Register = ({ slideBack }) => {
                             theme: "dark",
                             transition: Bounce,
                         });
+                        setSpiner(false)
                     }
                 });
         }
@@ -102,7 +103,7 @@ const Register = ({ slideBack }) => {
                 <h6>Register</h6>
 
                 {/* register form */}
-                <form onSubmit={handleSubmit}>
+                <form>
 
                     {/* user name */}
                     <div className="userName">
@@ -177,16 +178,13 @@ const Register = ({ slideBack }) => {
                     </div>
 
                     {/* register submit button */}
-                    <button className='registerButton'>
-                        
-                        {
-                            spiner ?
-                            <ClipLoader className='mt-2'/>
-                            :
-                            "Register"    
-                        }
-
-                        </button>
+                    {
+                        spiner ? 
+                        <button type='button' className='registerButton pt-2'><ClipLoader color='#fff'/></button>
+                        :
+                        <button onClick={handleSubmit} className='registerButton'>Register</button>
+                    }
+             
                 </form>
 
                 <button className='slideBack' onClick={slideBack}><RiArrowRightWideLine /></button>

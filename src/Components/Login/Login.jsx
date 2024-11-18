@@ -9,22 +9,22 @@ const Login = ({ slideBack }) => {
 
     const [show, setShow] = useState(false)
 
-    const [formData, setFormData] = useState({ email: "", password: "" })
-    const [formError, setFormError] = useState({ emailError: "", passwordError: "" })
+    const [loginData, setloginData] = useState({ email: "", password: "" })
+    const [loginError, setloginError] = useState({ emailError: "", passwordError: "" })
 
     const auth = getAuth()
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (!formData.email) {
-            setFormError((prev) => ({ ...prev, emailError: "Enter Your Registered Email" }))
+        if (!loginData.email) {
+            setloginError((prev) => ({ ...prev, emailError: "Enter Your Registered Email" }))
         }
-        if (!formData.password) {
-            setFormError((prev) => ({ ...prev, passwordError: "Enter Your Password" }))
+        if (!loginData.password) {
+            setloginError((prev) => ({ ...prev, passwordError: "Enter Your Password" }))
         }
         else {
-            signInWithEmailAndPassword(auth, formData.email, formData.password)
+            signInWithEmailAndPassword(auth, loginData.email, loginData.password)
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
@@ -103,10 +103,10 @@ const Login = ({ slideBack }) => {
 
                             placeholder='example@gmail.com'
 
-                            onChange={(e) => (setFormData((prev) => ({ ...prev, email: e.target.value })), setFormError((prev) => ({ ...prev, emailError: "" })))}
+                            onChange={(e) => (setloginData((prev) => ({ ...prev, email: e.target.value })), setloginError((prev) => ({ ...prev, emailError: "" })))}
                         />
 
-                        <p className="error">{formError.emailError}</p>
+                        <p className="error">{loginError.emailError}</p>
                     </div>
 
                     <div className="passLogin">
@@ -114,10 +114,10 @@ const Login = ({ slideBack }) => {
 
                             placeholder='Password...'
 
-                            onChange={(e) => (setFormData((prev) => ({ ...prev, password: e.target.value })), setFormError((prev) => ({ ...prev, passwordError: "" })))}
+                            onChange={(e) => (setloginData((prev) => ({ ...prev, password: e.target.value })), setloginError((prev) => ({ ...prev, passwordError: "" })))}
                         />
 
-                        <p className="error">{formError.passwordError}</p>
+                        <p className="error">{loginError.passwordError}</p>
 
                         {/* for toggle password show and !show */}
                         <button type='button' onClick={() => setShow(!show)} className='showPassButton'>
