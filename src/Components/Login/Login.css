@@ -1,0 +1,35 @@
+.loginSection{
+    @apply w-[700px] h-screen flex justify-center items-center bg-slate-200 flex-col
+}
+
+.loginSection h6{
+    @apply text-6xl italic mb-6
+}
+
+form input{
+    @apply w-[400px] h-[50px] rounded-xl pl-5 outline-none border-none mt-4 focus-within:translate-y-[-2px] focus-within:shadow-lg duration-200 will-change-transform
+}
+
+.loginButton{
+    @apply px-8 py-3 bg-slate-400 mt-4 rounded-2xl text-2xl text-white duration-200
+}
+
+.loginButton:hover{
+    @apply bg-slate-500
+}
+
+.slideBack{
+    @apply absolute h-full left-0 text-5xl text-slate-300 duration-200
+}
+
+.slideBack:hover{
+    @apply text-slate-500 bg-slate-300 
+}
+
+.emailLogin, .passLogin{
+    @apply relative
+}
+
+.error{
+    @apply absolute
+}

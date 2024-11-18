@@ -1,0 +1,39 @@
+.registerSection{
+    @apply w-[700px] h-screen flex flex-col justify-center items-center bg-slate-200 
+}
+
+.registerSection h6{
+    @apply text-6xl italic mb-6
+}
+
+form input{
+    @apply w-[400px] h-[50px] rounded-xl pl-5 outline-none border-none mt-4 focus-within:translate-y-[-2px] focus-within:shadow-lg duration-200 will-change-transform
+}
+
+.registerButton{
+    @apply w-[180px] h-[50px] bg-slate-400 mt-4 rounded-2xl text-2xl text-white duration-200
+}
+
+.registerButton:hover{
+    @apply bg-slate-500
+}
+
+.slideBack{
+    @apply absolute h-full left-0 text-5xl text-slate-300 duration-200
+}
+
+.slideBack:hover{
+    @apply text-slate-500 bg-slate-300 
+}
+
+.showPassButton{
+    @apply absolute bottom-3 right-5 text-2xl text-slate-400 hover:text-slate-800
+}
+
+.error{
+    @apply absolute top-0 right-4 text-xs text-red-400
+}
+
+.userName, .emailRegister, .passRegister, .re-passRegister{
+    @apply relative
+}

@@ -1,0 +1,28 @@
+.welcomeSection{
+    @apply flex items-center overflow-hidden bg-[url("/images/background.svg")] bg-cover bg-center bg-no-repeat
+}
+
+
+.welcomeRow{
+    @apply py-20  w-full h-screen flex flex-col items-center
+}
+
+.welcomeRow h1{
+    @apply font-semibold text-6xl
+}
+
+.welcomeRow p{
+    @apply w-[250px] my-10 text-center text-xl 
+}
+
+.welcomeRow li{
+    @apply font-normal text-xl w-[370px] flex justify-between mt-2
+}
+
+.welcomeRow li button{
+    @apply font-semibold duration-200 ml-4 will-change-transform
+}
+
+.welcomeRow li button:hover{
+    @apply text-blue-600 scale-110 will-change-transform
+}
