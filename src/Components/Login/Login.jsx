@@ -4,23 +4,33 @@ import React, { useState } from 'react'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { RiArrowRightWideLine } from 'react-icons/ri'
 import { Bounce, toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { userDataReducers } from '../../Slices/UserSlice'
 
 const Login = ({ slideBack }) => {
 
+    // ==================== All useStates Hooks
     const [show, setShow] = useState(false)
 
+    // --- for form data useState
     const [loginData, setloginData] = useState({ email: "", password: "" })
     const [loginError, setloginError] = useState({ emailError: "", passwordError: "" })
 
-    const auth = getAuth()
+    const auth = getAuth() // for firebase authentications
 
+    const navigate = useNavigate() // for navigate to other page
+
+    const dispatch = useDispatch() // for sending sata to redux reducers
+
+    // for form submit function
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (!loginData.email) {
+        if (!loginData.email) { // if email input is empty
             setloginError((prev) => ({ ...prev, emailError: "Enter Your Registered Email" }))
         }
-        if (!loginData.password) {
+        if (!loginData.password) { // if password input is empty
             setloginError((prev) => ({ ...prev, passwordError: "Enter Your Password" }))
         }
         else {
@@ -29,9 +39,10 @@ const Login = ({ slideBack }) => {
                     // Signed in 
                     const user = userCredential.user;
 
+                    // if email is not varified 
                     if (user.emailVerified === false) {
-                        // --- email is not varified toast
-                        toast.error('Email is not varified', {
+                        
+                        toast.error('Email is not varified', { // email is not varified toast massage
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -42,9 +53,10 @@ const Login = ({ slideBack }) => {
                             theme: "dark",
                             transition: Bounce,
                         });
-                    } else {
-                        // --- email is not varified toast
-                        toast.success('Login Successful 😁✌️', {
+                    } 
+                    else {
+                        
+                        toast.success('Login Successful 😁✌️', { // login successful toast massage
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -55,14 +67,19 @@ const Login = ({ slideBack }) => {
                             theme: "dark",
                             transition: Bounce,
                         });
+
+                        navigate("/home") // navigating to home
+
+                        dispatch(userDataReducers(user)) // sending user data to redux's reducers to update the store
                     }
                 })
                 .catch((error) => {
                     const errorCode = error.code;
-                    console.log(errorCode)
+
+                    // if email/password doesn't match
                     if (errorCode == "auth/invalid-credential") {
-                        // --- if password does not match
-                        toast.error('Something is Wrong!🤔', {
+                        
+                        toast.error('Something is Wrong!🤔', { // something wrong toast massage
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -75,9 +92,10 @@ const Login = ({ slideBack }) => {
                         });
                     }
 
+                    // if email is disabled 
                     if (errorCode == "auth/user-disabled") {
-                        // --- if user has been diabled 
-                        toast.error('Profile is Disabled', {
+                        
+                        toast.error('Profile is Disabled', { // profile is disabled toast massage
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -96,8 +114,13 @@ const Login = ({ slideBack }) => {
     return (
         <>
             <section className='loginSection'>
+
                 <h6>Login</h6>
+
+                {/* login form */}
                 <form onSubmit={handleSubmit}>
+
+                    {/* email part */}
                     <div className="emailLogin">
                         <input type="email"
 
@@ -109,6 +132,7 @@ const Login = ({ slideBack }) => {
                         <p className="error">{loginError.emailError}</p>
                     </div>
 
+                    {/* password part */}
                     <div className="passLogin">
                         <input type={show ? "text" : "password"}
 
@@ -130,9 +154,13 @@ const Login = ({ slideBack }) => {
                         </button>
                     </div>
 
+                    {/* login button */}
                     <button className='loginButton'>Login</button>
                 </form>
+
+
                 <button className='slideBack' onClick={slideBack}><RiArrowRightWideLine /></button>
+                
             </section>
         </>
     )

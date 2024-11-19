@@ -11,12 +11,14 @@ const Welcome = () => {
 
     const [loginShow, setLoginShow] = useState(false)
 
+    // register button function
     const handleRegButton = () => {
         setRegShow(true)
         setSlideShow(true)
         setLoginShow(false)
     }
 
+    // login button function
     const handleLoginButton = () => {
         setLoginShow(true)
         setSlideShow(true)
@@ -38,10 +40,12 @@ const Welcome = () => {
 
                 <ul className={`flex relative ${slideShow ? "duration-500 mr-[-35%]" : "mr-[-80%] duration-500"}`}>
 
+                    {/* register button */}
                     <li className={regShow ? "duration-500 translate-x-[30px]" : "translate-x-[700px] duration-500"}>
                         <Register slideBack={()=>setSlideShow(!slideShow)}/>
                     </li>
 
+                    {/* login button */}
                     <li className={loginShow ? "duration-500 translate-x-[-670px]" : "translate-x-[700px] duration-500"}>
                         <Login slideBack={()=>setSlideShow(!slideShow)}/>
                     </li>

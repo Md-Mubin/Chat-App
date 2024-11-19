@@ -1,42 +1,47 @@
-import './Register.css'
-import React, { useState } from 'react'
-import { RiArrowRightWideLine } from 'react-icons/ri'
+// ====================== All Imports
+import                                  './Register.css'
+import React, { useState }         from 'react'
+import { ClipLoader }              from 'react-spinners'
+import { Bounce, toast }           from 'react-toastify'
+import { RiArrowRightWideLine }    from 'react-icons/ri'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from 'firebase/auth'
-import { Bounce, toast } from 'react-toastify'
-import { ClipLoader } from 'react-spinners'
 
 const Register = ({ slideBack }) => {
 
-    const [show, setShow] = useState(false)
+    // ==================== All useStates Hooks
+    const [show  , setShow]   = useState(false)
     const [reShow, setReShow] = useState(false)
     const [spiner, setSpiner] = useState(false)
 
-    const [formData, setFormData] = useState({ userName: "", email: "", password: "", rePassword: "" })
+    // --- for form data useState
+    const [formData , setFormData]  = useState({ userName: "", email: "", password: "", rePassword: "" })
     const [formError, setFormError] = useState({ userNameError: "", emailError: "", passwordError: "" })
 
-    const auth = getAuth()
+    const auth = getAuth() // for firebase authentications
 
+    // for form submit function
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (!formData.userName) {
+        if (!formData.userName) { // if username input is empty
             setFormError((prev) => ({ ...prev, userNameError: "Please Enter Your Name" }))
         }
-        if (!formData.email) {
+        if (!formData.email) { // if email input is empty
             setFormError((prev) => ({ ...prev, emailError: "Please Enter Your Email" }))
         }
-        if (!formData.password) {
+        if (!formData.password) { // if password input is empty
             setFormError((prev) => ({ ...prev, passwordError: "Please Give A Password" }))
         }
         else {
-            setSpiner(true)
+
+            setSpiner(true) // for spinner turns on
 
             // create users in firebase
             createUserWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
                     // Signed up 
-                    const user = userCredential.user;
+                    const user = userCredential.user; // user
 
                     updateProfile(auth.currentUser, {
                         displayName: formData.userName,
@@ -50,7 +55,7 @@ const Register = ({ slideBack }) => {
                                 setSpiner(false) // for spinner turns off
 
                                 // --- Email Verification Sent Toast
-                                toast.success('Email Verified Send', {
+                                toast.success('Email Verified Send', { // email verified send toast massage
                                     position: "top-right",
                                     autoClose: 1000,
                                     hideProgressBar: false,
@@ -68,12 +73,13 @@ const Register = ({ slideBack }) => {
                 .catch((error) => {
                     const errorCode = error.code;
 
-                    setSpiner(false)
+                    setSpiner(false) // for spinner turns off
 
                     if (errorCode == "auth/email-already-in-use") {
+
                         // --- Email Alreday in Used Toast
-                        toast.info('Email is already in use', {
-                            position: "top-right",
+                        toast.info('Email is already in use', { // email already in use toast massage
+                            position: "top-right", 
                             autoClose: 1000,
                             hideProgressBar: false,
                             closeOnClick: true,
@@ -85,8 +91,10 @@ const Register = ({ slideBack }) => {
                         });
                     }
 
+                    // if password is lower than 6 charecter
                     if(errorCode == "auth/weak-password"){
-                       setFormError((prev)=>({...prev, passwordError: "Weak Password"}))
+
+                       setFormError((prev)=>({...prev, passwordError: "Weak Password"})) 
                     }
                 });
         }
