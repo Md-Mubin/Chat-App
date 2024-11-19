@@ -13,7 +13,7 @@ const Register = ({ slideBack }) => {
     const [spiner, setSpiner] = useState(false)
 
     const [formData, setFormData] = useState({ userName: "", email: "", password: "", rePassword: "" })
-    const [formError, setFormError] = useState({ userNameError: "", emailError: "", passwordError: "", rePasswordError: "" })
+    const [formError, setFormError] = useState({ userNameError: "", emailError: "", passwordError: "" })
 
     const auth = getAuth()
 
@@ -29,15 +29,9 @@ const Register = ({ slideBack }) => {
         if (!formData.password) {
             setFormError((prev) => ({ ...prev, passwordError: "Please Give A Password" }))
         }
-        if (!formData.rePassword) {
-            setFormError((prev) => ({ ...prev, rePasswordError: "Please Re-Enter The Password" }))
-        }
-        if (formData.password !== formData.rePassword) {
-            setFormError((prev) => ({ ...prev, rePasswordError: "Re-Enter The Password Correctly" }))
-        } 
-        if (formData.userName && formData.email && formData.password && formData.password === formData.rePassword){
+        else {
             setSpiner(true)
-            
+
             // create users in firebase
             createUserWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
@@ -69,14 +63,12 @@ const Register = ({ slideBack }) => {
                                 });
                             });
 
-                    }).catch((error) => {
-                        // An error occurred
-                        // ...
-                    });
-
+                    })
                 })
                 .catch((error) => {
                     const errorCode = error.code;
+
+                    setSpiner(false)
 
                     if (errorCode == "auth/email-already-in-use") {
                         // --- Email Alreday in Used Toast
@@ -91,7 +83,10 @@ const Register = ({ slideBack }) => {
                             theme: "dark",
                             transition: Bounce,
                         });
-                        setSpiner(false)
+                    }
+
+                    if(errorCode == "auth/weak-password"){
+                       setFormError((prev)=>({...prev, passwordError: "Weak Password"}))
                     }
                 });
         }
@@ -158,9 +153,9 @@ const Register = ({ slideBack }) => {
                     <div className="re-passRegister">
                         <input type={reShow ? "text" : "password"}
 
-                            placeholder='Re-Enter Password. . .'
+                            value={formData.password}
 
-                            onChange={(e) => (setFormData((prev) => ({ ...prev, rePassword: e.target.value })), setFormError((prev) => ({ ...prev, rePasswordError: "" })))} // onchange of re-password input
+                            placeholder='Re-Enter Password. . .'
                         />
 
                         {/* re-password input error */}
@@ -179,12 +174,12 @@ const Register = ({ slideBack }) => {
 
                     {/* register submit button */}
                     {
-                        spiner ? 
-                        <button type='button' className='registerButton pt-2'><ClipLoader color='#fff'/></button>
-                        :
-                        <button onClick={handleSubmit} className='registerButton'>Register</button>
+                        spiner ?
+                            <button type='button' className='registerButton pt-2'><ClipLoader color='#fff' /></button>
+                            :
+                            <button onClick={handleSubmit} className='registerButton'>Register</button>
                     }
-             
+
                 </form>
 
                 <button className='slideBack' onClick={slideBack}><RiArrowRightWideLine /></button>
