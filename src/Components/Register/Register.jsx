@@ -15,7 +15,7 @@ const Register = ({ slideBack }) => {
     const [spiner, setSpiner] = useState(false)
 
     // --- for form data useState
-    const [formData , setFormData]  = useState({ userName: "", email: "", password: "", rePassword: "" })
+    const [formData , setFormData]  = useState({ userName: "", email: "", password: "" })
     const [formError, setFormError] = useState({ userNameError: "", emailError: "", passwordError: "" })
 
     const auth = getAuth() // for firebase authentications
@@ -163,11 +163,10 @@ const Register = ({ slideBack }) => {
 
                             value={formData.password}
 
+                            readOnly // can not change the value menually
+
                             placeholder='Re-Enter Password. . .'
                         />
-
-                        {/* re-password input error */}
-                        <p className="error">{formError.rePasswordError}</p>
 
                         {/* for toggle password show and !show */}
                         <button type='button' onClick={() => setReShow(!reShow)} className='showPassButton'>
