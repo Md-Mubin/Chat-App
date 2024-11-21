@@ -43,19 +43,28 @@ const Navbar = () => {
         <>
             <nav>
                 <ul>
-                    <Link to={"/massages"}><IoChatboxEllipsesOutline className='hover:text-blue-500' /></Link>
-                    <Link to={"/userProfile"}><FaRegUserCircle className='hover:text-purple-400' /></Link>
-                    <Link to={"/settings"}><GoGear className='hover:text-black' /></Link>
-                    <Link onClick={handleLogout} to={"/"}><GiExitDoor className='hover:text-red-600' /></Link>
+                    <Link className='hover:text-blue-500' to={"/massages"}><IoChatboxEllipsesOutline /> <span>Chats</span> </Link>
+                    <Link className='hover:text-purple-400' to={"/userProfile"}><FaRegUserCircle /> <span>Profile</span> </Link>
+                    <Link className='hover:text-black dark:hover:text-white'to={"/settings"}><GoGear /> <span>Settings</span> </Link>
+                    <Link className='hover:text-red-600' onClick={handleLogout} to={"/"}><GiExitDoor /> <span>Log Out</span> </Link>
                 </ul>
 
                 <button onClick={() => setDarkmode(!darkmode)}>
                     {
                         darkmode ?
-                            <PiSunDuotone />
+                            <PiSunDuotone />  
                             :
-                            <PiMoonDuotone />
+                            <PiMoonDuotone /> 
                     }
+
+                    <span>
+                        {
+                            darkmode?
+                            "Light Mode"
+                            :
+                            "Dark Mode"
+                        }
+                    </span>
                 </button>
             </nav>
         </>
