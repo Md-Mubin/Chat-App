@@ -7,6 +7,7 @@ import Home from './Pages/Home/Home'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 import app from './firebase.config'
+import LayoutTwo from './Layouts/LayoutTwo'
 
 function App() {
 
@@ -15,7 +16,9 @@ function App() {
       <Route>
         <Route path='/' element={<LayoutOne />}>
           <Route index element={<Auth />} />
-          <Route path='/home' element={<Home />} />
+        </Route>
+        <Route path='/userProfile' element={<LayoutTwo />}>
+          <Route index element={<Home />} />
         </Route>
       </Route>
     )

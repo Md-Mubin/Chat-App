@@ -1,0 +1,27 @@
+nav{
+    @apply mt-44 ml-10 w-[70px] flex flex-col justify-between
+}
+
+nav ul{
+    @apply flex flex-col gap-4 text-2xl duration-200 will-change-transform
+}
+
+nav ul:hover{
+    @apply scale-110 will-change-transform
+}
+
+nav ul a{
+    @apply text-4xl duration-200 will-change-transform h-[50px] flex items-center text-slate-400 dark:text-white
+}
+
+nav ul a:hover{
+    @apply scale-110 pl-4 will-change-transform
+}
+
+nav button{
+    @apply text-4xl text-slate-400 duration-200 mb-10 will-change-transform
+}
+
+nav button:hover{
+    @apply scale-110 pl-2 will-change-transform
+}

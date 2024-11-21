@@ -68,7 +68,7 @@ const Login = ({ slideBack }) => {
                             transition: Bounce,
                         });
 
-                        navigate("/home") // navigating to home
+                        navigate("/userProfile") // navigating to home
 
                         dispatch(userDataReducers(user)) // sending user data to redux's reducers to update the store
                     }

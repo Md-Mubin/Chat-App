@@ -1,0 +1,23 @@
+.userCart{
+    @apply w-[1000px] h-[500px] mt-40 rounded-3xl p-20 flex bg-slate-100 dark:bg-[#283042] dark:shadow-[5px_5px_5px_#000] shadow-xl
+}
+
+.userProfileHead{
+    @apply  pr-16 text-center border-r-2 border-slate-200
+}
+
+.userProfileHead li{
+    @apply text-3xl mt-6 text-black dark:text-white
+}
+
+.userInfosCol{
+    @apply ml-10
+}
+
+.userInfosCol li{
+    @apply font-medium text-xl py-4 border-b-2 border-slate-300 w-full  text-black dark:text-white
+}
+
+.userInfosCol li span{
+    @apply w-[100px] inline-block text-2xl text-black dark:text-[#609fc1]
+}

@@ -7,7 +7,7 @@
 }
 
 form input{
-    @apply w-[400px] h-[50px] rounded-xl pl-5 outline-none border-none mt-4 focus-within:translate-y-[-2px] focus-within:shadow-lg duration-200 will-change-transform
+    @apply w-[400px] h-[50px] rounded-xl pl-5 outline-none border-none mt-4 cursor-pointer focus-within:translate-y-[-2px] focus-within:shadow-lg duration-200 will-change-transform
 }
 
 .registerButton{
