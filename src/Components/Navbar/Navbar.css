@@ -19,7 +19,7 @@ nav ul a:hover{
 }
 
 nav ul a span{
-    @apply opacity-0 text-sm duration-300 absolute px-4 py-1 rounded-full bg-slate-100 dark:bg-[#343f58] text-black dark:text-slate-400 text-nowrap will-change-transform
+    @apply opacity-0 text-sm duration-300 absolute px-4 py-1 rounded-full bg-slate-200 dark:bg-[#343f58] text-black dark:text-slate-300 text-nowrap will-change-transform
 }
 
 nav ul a:hover span{
@@ -35,7 +35,7 @@ nav button:hover{
 }
 
 nav button span{
-    @apply opacity-0 top-1 left-0 text-sm duration-300 absolute px-4 py-1 rounded-full bg-slate-100 dark:bg-[#343f58] text-black dark:text-slate-400 text-nowrap will-change-transform
+    @apply opacity-0 top-1 left-0 text-sm duration-300 absolute px-4 py-1 rounded-full bg-slate-100 dark:bg-[#343f58] text-black dark:text-slate-300 text-nowrap will-change-transform
 }
 
 nav button:hover span{

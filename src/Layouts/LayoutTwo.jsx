@@ -4,10 +4,11 @@ import Navbar from '../Components/Navbar/Navbar'
 
 const LayoutTwo = () => {
     return (
-        <><div className="flex justify-center ">
-            <Outlet />
-            <Navbar />
-        </div>
+        <>
+            <div className="flex justify-center ">
+                <Outlet />
+                <Navbar />
+            </div>
         </>
     )
 }

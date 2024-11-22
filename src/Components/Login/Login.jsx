@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { RiArrowRightWideLine } from 'react-icons/ri'
 import { Bounce, toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { userDataReducers } from '../../Slices/UserSlice'
 
@@ -41,7 +41,7 @@ const Login = ({ slideBack }) => {
 
                     // if email is not varified 
                     if (user.emailVerified === false) {
-                        
+
                         toast.error('Email is not varified', { // email is not varified toast massage
                             position: "top-right",
                             autoClose: 1000,
@@ -53,9 +53,9 @@ const Login = ({ slideBack }) => {
                             theme: "dark",
                             transition: Bounce,
                         });
-                    } 
+                    }
                     else {
-                        
+
                         toast.success('Login Successful 😁✌️', { // login successful toast massage
                             position: "top-right",
                             autoClose: 1000,
@@ -78,7 +78,7 @@ const Login = ({ slideBack }) => {
 
                     // if email/password doesn't match
                     if (errorCode == "auth/invalid-credential") {
-                        
+
                         toast.error('Something is Wrong!🤔', { // something wrong toast massage
                             position: "top-right",
                             autoClose: 1000,
@@ -94,7 +94,7 @@ const Login = ({ slideBack }) => {
 
                     // if email is disabled 
                     if (errorCode == "auth/user-disabled") {
-                        
+
                         toast.error('Profile is Disabled', { // profile is disabled toast massage
                             position: "top-right",
                             autoClose: 1000,
@@ -154,13 +154,15 @@ const Login = ({ slideBack }) => {
                         </button>
                     </div>
 
+                    <Link to={"/forgetPassword"} className="forgotPassword">Forgot Password?</Link>
+
                     {/* login button */}
-                    <button className='loginButton'>Login</button>
+                    <button className='loginButton block'>Login</button>
+
                 </form>
 
-
                 <button className='slideBack' onClick={slideBack}><RiArrowRightWideLine /></button>
-                
+
             </section>
         </>
     )

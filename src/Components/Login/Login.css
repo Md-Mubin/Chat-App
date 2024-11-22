@@ -33,3 +33,11 @@ form input{
 .error{
     @apply absolute
 }
+
+.forgotPassword{
+    @apply w-fit ml-[65%] text-[16px] duration-200
+}
+
+.forgotPassword:hover{
+    @apply text-fuchsia-500
+}

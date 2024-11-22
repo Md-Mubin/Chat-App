@@ -1,9 +1,9 @@
 .userCart{
-    @apply w-[1000px] h-[500px] mt-40 rounded-3xl p-20 flex bg-slate-100 dark:bg-[#343f58] dark:shadow-[5px_5px_5px_#000] shadow-xl
+    @apply w-[1000px] h-[500px] mt-40 rounded-3xl p-20 flex  bg-slate-100 dark:bg-[#343f58] dark:shadow-[5px_5px_5px_#000] shadow-xl
 }
 
 .userProfileHead{
-    @apply  pr-16 text-center border-r-2 border-slate-200 dark:border-slate-500
+    @apply w-[350px] pr-16 text-center border-r-2 border-slate-200 dark:border-slate-500
 }
 
 .userProfileHead li{
@@ -11,7 +11,7 @@
 }
 
 .userInfosCol{
-    @apply ml-10
+    @apply ml-20
 }
 
 .userInfosCol li{
