@@ -3,7 +3,7 @@ nav{
 }
 
 nav ul{
-    @apply flex flex-col gap-4 text-2xl duration-200 will-change-transform
+    @apply flex flex-col gap-4 text-2xl duration-200 will-change-transform 
 }
 
 nav ul:hover{

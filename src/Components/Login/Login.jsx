@@ -7,6 +7,7 @@ import { Bounce, toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { userDataReducers } from '../../Slices/UserSlice'
+import { getDatabase, ref, set } from "firebase/database";
 
 const Login = ({ slideBack }) => {
 
@@ -18,6 +19,8 @@ const Login = ({ slideBack }) => {
     const [loginError, setloginError] = useState({ emailError: "", passwordError: "" })
 
     const auth = getAuth() // for firebase authentications
+
+    const db = getDatabase() // for firebase real time database
 
     const navigate = useNavigate() // for navigate to other page
 
@@ -40,21 +43,21 @@ const Login = ({ slideBack }) => {
                     const user = userCredential.user;
 
                     // if email is not varified 
-                    if (user.emailVerified === false) {
+                    // if (user.emailVerified === false) {
 
-                        toast.error('Email is not varified', { // email is not varified toast massage
-                            position: "top-right",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "dark",
-                            transition: Bounce,
-                        });
-                    }
-                    else {
+                    //     toast.error('Email is not varified', { // email is not varified toast massage
+                    //         position: "top-right",
+                    //         autoClose: 1000,
+                    //         hideProgressBar: false,
+                    //         closeOnClick: true,
+                    //         pauseOnHover: true,
+                    //         draggable: true,
+                    //         progress: undefined,
+                    //         theme: "dark",
+                    //         transition: Bounce,
+                    //     });
+                    // }
+                    // else {
 
                         toast.success('Login Successful 😁✌️', { // login successful toast massage
                             position: "top-right",
@@ -68,10 +71,17 @@ const Login = ({ slideBack }) => {
                             transition: Bounce,
                         });
 
-                        navigate("/userProfile") // navigating to home
+                        navigate("/") // navigating to home
 
                         dispatch(userDataReducers(user)) // sending user data to redux's reducers to update the store
-                    }
+
+                        localStorage.setItem("currentUser", JSON.stringify(user))
+
+                        set(ref(db, 'allUsers/' + user.uid), {
+                            userName: user.displayName,
+                            userImage : user.photoURL
+                        })
+                    // }
                 })
                 .catch((error) => {
                     const errorCode = error.code;
