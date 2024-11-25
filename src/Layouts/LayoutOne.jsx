@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from '../Components/Navbar/Navbar'
 
-const LayoutTwo = () => {
+const LayoutOne = () => {
     return (
         <>
             <div className="flex justify-center ">
@@ -13,4 +13,4 @@ const LayoutTwo = () => {
     )
 }
 
-export default LayoutTwo
+export default LayoutOne

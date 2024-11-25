@@ -13,22 +13,35 @@ const Navbar = () => {
     // ==================== All useStates Hooks
     const [darkmode, setDarkmode] = useState(false)
 
-    // --- for darkmode 
+    // ========== saving the mode when user visitor
     useEffect(() => {
-        if (darkmode) {
-            document.documentElement.classList.add("dark")
-        } else {
-            document.documentElement.classList.remove("dark")
-        }
-        localStorage.setItem("dark", darkmode)
-    }, [darkmode])
+        const savedMode = localStorage.getItem("mode") || "light";
+        localStorage.setItem("mode", savedMode);
+        document
+            .querySelector("html")
+            .classList.toggle("dark", savedMode === "dark");
+    }, []);
 
+    // ========== changing the mode on toggle
+    const handelMode = () => {
+        if (localStorage.getItem("mode") == "light") {
+            localStorage.setItem("mode", "dark");
+            document.querySelector("html").classList.add("dark");
+            setDarkmode(!darkmode);
+        } else {
+            localStorage.setItem("mode", "light");
+            document.querySelector("html").classList.remove("dark");
+            setDarkmode(!darkmode);
+        }
+    };
+
+    // ========== Navigation function
     const navigate = useNavigate()
 
-    // -------- Logout Handle
+    // ========== Logout Handle
     const handleLogout = () => {
-       localStorage.removeItem("currentUser")
-       navigate("/userCreate")
+        localStorage.removeItem("currentUser")
+        navigate("/userCreate")
     }
 
     return (
@@ -42,7 +55,7 @@ const Navbar = () => {
                     <button className='hover:text-red-600 h-fit' onClick={handleLogout}><GiExitDoor /> <span>Log Out</span> </button>
                 </ul>
 
-                <button className='mt-10' onClick={() => setDarkmode(!darkmode)}>
+                <button className='mt-10' onClick={handelMode}>
                     {
                         darkmode ?
                             <PiSunDuotone />

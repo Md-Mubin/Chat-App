@@ -15,7 +15,7 @@ const Login = ({ slideBack }) => {
     const [show, setShow] = useState(false)
 
     // --- for form data useState
-    const [loginData, setloginData] = useState({ email: "", password: "" })
+    const [loginData , setloginData]  = useState({ email: "", password: "" })
     const [loginError, setloginError] = useState({ emailError: "", passwordError: "" })
 
     const auth = getAuth() // for firebase authentications
@@ -43,21 +43,21 @@ const Login = ({ slideBack }) => {
                     const user = userCredential.user;
 
                     // if email is not varified 
-                    // if (user.emailVerified === false) {
+                    if (user.emailVerified === false) {
 
-                    //     toast.error('Email is not varified', { // email is not varified toast massage
-                    //         position: "top-right",
-                    //         autoClose: 1000,
-                    //         hideProgressBar: false,
-                    //         closeOnClick: true,
-                    //         pauseOnHover: true,
-                    //         draggable: true,
-                    //         progress: undefined,
-                    //         theme: "dark",
-                    //         transition: Bounce,
-                    //     });
-                    // }
-                    // else {
+                        toast.error('Email is not varified', { // email is not varified toast massage
+                            position: "top-right",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                            transition: Bounce,
+                        });
+                    }
+                    else {
 
                         toast.success('Login Successful 😁✌️', { // login successful toast massage
                             position: "top-right",
@@ -75,15 +75,17 @@ const Login = ({ slideBack }) => {
 
                         dispatch(userDataReducers(user)) // sending user data to redux's reducers to update the store
 
-                        localStorage.setItem("currentUser", JSON.stringify(user))
+                        localStorage.setItem("currentUser", JSON.stringify(user)) // to save login user's data in local storage
 
-                        set(ref(db, 'allUsers/' + user.uid), {
+                        set(ref(db, 'allUsers/' + user.uid), { // write data in firebase's realtime database
                             userName: user.displayName,
                             userImage : user.photoURL
                         })
-                    // }
+                    }
                 })
                 .catch((error) => {
+
+                    // error code from firebase
                     const errorCode = error.code;
 
                     // if email/password doesn't match

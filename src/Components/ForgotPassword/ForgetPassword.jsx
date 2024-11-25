@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom'
 
 const ForgetPassword = () => {
 
+    // =============== All Hooks
     const [resetEmail, setResetEmail] = useState("")
     const [resetEmailError, setResetEmailError] = useState("")
+    
+    const auth = getAuth() // authentication from firebase
 
-    const auth = getAuth()
-
+    // =============== reset password button function
     const handleResetPassword = (e) => {
         e.preventDefault()
 
@@ -34,6 +36,13 @@ const ForgetPassword = () => {
         }
     }
 
+    // =============== function will run after pressing "Enter" 
+    const handleEnter = (e)=>{
+        if(e.key == "Enter"){
+            handleResetPassword(e)
+        }
+    }
+
     return (
         <>
             <section>
@@ -46,13 +55,15 @@ const ForgetPassword = () => {
 
                             placeholder='Reset Password Email...'
 
+                            onKeyDown={(e)=>handleEnter(e)}
+
                             onChange={(e) => { setResetEmail(e.target.value), setResetEmailError("") }}
 
                         />
 
                         <div className="resetEmailError">{resetEmailError}</div>
 
-                        <Link className='ml-[-20%] hover:scale-105 duration-200 will-change-transform mt-2' to={'/'}>← Go back</Link>
+                        <Link className='goBack' to={'/userCreate'}>← Go back</Link>
 
                         <button onClick={handleResetPassword}>Reset Password</button>
 

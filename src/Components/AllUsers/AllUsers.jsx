@@ -6,19 +6,18 @@ import { useSelector } from 'react-redux'
 
 const AllUsers = () => {
 
+    // ========== All Hooks
+    const [allUsers, setAllUsers] = useState([])
     const usersFromSlices = useSelector((state)=>state.userData.value)
 
-    console.log(usersFromSlices)
-
-    const [allUsers, setAllUsers] = useState([])
-
+    // ========== firebase real time Database
     const db = getDatabase()
 
+    // ========== Rendering the data coming from firebase
     useEffect(() => {
         onValue(ref(db, 'allUsers/'), (snapshot) => {
             const arr = []
             snapshot.forEach((items) => {
-                console.log(items.key)
                 if(items.key != usersFromSlices.uid){
                     arr.push({...items.val(), userKey: items.key})
                 }
