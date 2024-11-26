@@ -19,7 +19,7 @@ const AllUsers = () => {
             const arr = []
             snapshot.forEach((items) => {
                 if(items.key != usersFromSlices.uid){
-                    arr.push({...items.val(), userKey: items.key})
+                    arr.push({...items.val(), userKeys: items.key})
                 }
             })
             setAllUsers(arr)
@@ -33,7 +33,7 @@ const AllUsers = () => {
                     <h1>All Users</h1>
                     {
                         allUsers.map((userDatas) => (
-                            <ul key={userDatas.userKey} className='w-[800px]'>
+                            <ul key={userDatas.userKeys} className='w-[800px]'>
                                 <CommonUsersList mainName={userDatas.userName} mainImage={userDatas.userImage}/>
                             </ul>
                         ))

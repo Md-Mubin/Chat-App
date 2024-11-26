@@ -16,6 +16,7 @@ const Navbar = () => {
     // ========== saving the mode when user visitor
     useEffect(() => {
         const savedMode = localStorage.getItem("mode") || "light";
+        
         localStorage.setItem("mode", savedMode);
         document
             .querySelector("html")
@@ -26,11 +27,15 @@ const Navbar = () => {
     const handelMode = () => {
         if (localStorage.getItem("mode") == "light") {
             localStorage.setItem("mode", "dark");
-            document.querySelector("html").classList.add("dark");
+            document
+                .querySelector("html")
+                .classList.add("dark");
             setDarkmode(!darkmode);
         } else {
             localStorage.setItem("mode", "light");
-            document.querySelector("html").classList.remove("dark");
+            document
+                   .querySelector("html")
+                   .classList.remove("dark");
             setDarkmode(!darkmode);
         }
     };
@@ -47,6 +52,8 @@ const Navbar = () => {
     return (
         <>
             <nav>
+
+                {/* ========== Navbar Items ========== */}
                 <ul>
                     <Link className='hover:text-blue-500' to={"/allUsers"}><FaUsersViewfinder /> <span>Users</span> </Link>
                     <Link className='hover:text-blue-500' to={"/massages"}><IoChatboxEllipsesOutline /> <span>Chats</span> </Link>
@@ -55,6 +62,7 @@ const Navbar = () => {
                     <button className='hover:text-red-600 h-fit' onClick={handleLogout}><GiExitDoor /> <span>Log Out</span> </button>
                 </ul>
 
+                {/* ========== Darkmode Toggle Button ========== */}
                 <button className='mt-10' onClick={handelMode}>
                     {
                         darkmode ?
