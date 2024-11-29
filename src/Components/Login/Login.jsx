@@ -43,21 +43,21 @@ const Login = ({ slideBack }) => {
                     const user = userCredential.user;
 
                     // if email is not varified 
-                    if (user.emailVerified === false) {
+                    // if (user.emailVerified === false) {
 
-                        toast.error('Email is not varified', { // email is not varified toast massage
-                            position: "top-right",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "dark",
-                            transition: Bounce,
-                        });
-                    }
-                    else {
+                    //     toast.error('Email is not varified', { // email is not varified toast massage
+                    //         position: "top-right",
+                    //         autoClose: 1000,
+                    //         hideProgressBar: false,
+                    //         closeOnClick: true,
+                    //         pauseOnHover: true,
+                    //         draggable: true,
+                    //         progress: undefined,
+                    //         theme: "dark",
+                    //         transition: Bounce,
+                    //     });
+                    // }
+                    // else {
 
                         toast.success('Login Successful 😁✌️', { // login successful toast massage
                             position: "top-right",
@@ -81,7 +81,7 @@ const Login = ({ slideBack }) => {
                             userName: user.displayName,
                             userImage : user.photoURL
                         })
-                    }
+                    // }
                 })
                 .catch((error) => {
 
