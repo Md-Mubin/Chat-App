@@ -3,10 +3,11 @@ import './Navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { IoChatboxEllipsesOutline } from 'react-icons/io5'
 import { GoGear } from 'react-icons/go'
-import { GiExitDoor } from 'react-icons/gi'
+import { GiExitDoor, GiThreeFriends } from 'react-icons/gi'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { PiMoonDuotone, PiSunDuotone } from 'react-icons/pi'
 import { FaUsersViewfinder } from 'react-icons/fa6'
+import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 
 const Navbar = () => {
 
@@ -16,7 +17,7 @@ const Navbar = () => {
     // ========== saving the mode when user visitor
     useEffect(() => {
         const savedMode = localStorage.getItem("mode") || "light";
-        
+
         localStorage.setItem("mode", savedMode);
         document
             .querySelector("html")
@@ -34,8 +35,8 @@ const Navbar = () => {
         } else {
             localStorage.setItem("mode", "light");
             document
-                   .querySelector("html")
-                   .classList.remove("dark");
+                .querySelector("html")
+                .classList.remove("dark");
             setDarkmode(!darkmode);
         }
     };
@@ -56,6 +57,8 @@ const Navbar = () => {
                 {/* ========== Navbar Items ========== */}
                 <ul>
                     <Link className='hover:text-blue-500' to={"/allUsers"}><FaUsersViewfinder /> <span>Users</span> </Link>
+                    <Link className='hover:text-orange-500' to={"/allRequests"}><AiOutlineUsergroupAdd /> <span>All Requests</span> </Link>
+                    <Link className='hover:text-green-500' to={"/allFriends"}><GiThreeFriends /> <span>All Friends</span> </Link>
                     <Link className='hover:text-blue-500' to={"/massages"}><IoChatboxEllipsesOutline /> <span>Chats</span> </Link>
                     <Link className='hover:text-purple-400' to={"/"}><FaRegUserCircle /> <span>Profile</span> </Link>
                     <Link className='hover:text-black dark:hover:text-white' to={"/settings"}><GoGear /> <span>Settings</span> </Link>
