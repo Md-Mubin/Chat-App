@@ -49,8 +49,7 @@ const Navbar = () => {
     // ========== Logout Handle
     const handleLogout = () => {
         localStorage.removeItem("currentUser")
-        // dispatch(userDataReducers())
-        navigate("/")
+        dispatch(userDataReducers())
     }
 
     return (
