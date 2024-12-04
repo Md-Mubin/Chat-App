@@ -11,21 +11,33 @@ import Welcome from './Components/Welcome/Welcome';
 import LayoutOne from './Layouts/LayoutOne';
 import AllRequest from './Components/AllRequest/AllRequest';
 import AllFriends from './Components/AllFriends/AllFriends';
+import { useSelector } from 'react-redux';
+import LayOutTwo from './Layouts/LayOutTwo';
 
 function App() {
 
+  const redux = useSelector((state) => state.userData.value)
+
   const myRoute = createBrowserRouter(
+
     createRoutesFromElements(
-      <Route>
-        <Route path='/userCreate' element={<Welcome />} />
-        <Route path='/forgetPassword' element={<ForgetPassword />} />
-        <Route path='/' element={<LayoutOne />}>
-          <Route index element={<Home />} />
-          <Route path='/allUsers' element={<AllUsers />} />
-          <Route path='/allRequests' element={<AllRequest/>}/>
-          <Route path='/allFriends' element={<AllFriends/>}/>
+      redux ?
+        <Route>
+          <Route path='/' element={<LayoutOne />}>
+            <Route index element={<Home />} />
+            <Route path='/allUsers' element={<AllUsers />} />
+            <Route path='/allRequests' element={<AllRequest />} />
+            <Route path='/allFriends' element={<AllFriends />} />
+          </Route>
         </Route>
-      </Route>
+
+        :
+        <Route>
+          <Route path='/' element={<LayOutTwo />}>
+            <Route index element={<Welcome />} />
+            <Route path='/forgetPassword' element={<ForgetPassword />} />
+          </Route>
+        </Route>
     )
   )
 

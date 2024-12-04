@@ -5,7 +5,7 @@ import Navbar from '../Components/Navbar/Navbar'
 const LayoutOne = () => {
     return (
         <>
-            <div className="flex justify-center ">
+            <div className="flex justify-center">
                 <Outlet />
                 <Navbar />
             </div>

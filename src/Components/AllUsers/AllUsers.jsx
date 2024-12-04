@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './AllUsers.css'
 import CommonUsersList from '../../Commons/CommonUsersList'
-import { getDatabase, onValue, push, ref, set } from 'firebase/database'
+import { getDatabase, onValue, ref, set } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import CommonUsersButton_v1 from '../../Commons/CommonUsersButton_v1'
 
@@ -29,14 +29,13 @@ const AllUsers = () => {
 
     // ========= Sending Friend Request Part
     const handelAdd = (addUser)=>{
-        set(push(ref(db, 'friendRequest/')), {
+        set(ref(db, 'friendRequest/' + addUser.userKeys), {
           senderId: usersFromSlices.uid , 
           senderPhoto: usersFromSlices.photoURL , 
           senderName: usersFromSlices.displayName ,
           receverId: addUser.userKeys , 
           receverName: addUser.userName , 
           reveverPhoto: addUser.userImage , 
-    
         });
       }
     

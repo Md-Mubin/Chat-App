@@ -8,6 +8,8 @@ import { FaRegUserCircle } from 'react-icons/fa'
 import { PiMoonDuotone, PiSunDuotone } from 'react-icons/pi'
 import { FaUsersViewfinder } from 'react-icons/fa6'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
+import { useDispatch } from 'react-redux'
+import { userDataReducers } from '../../Slices/UserSlice'
 
 const Navbar = () => {
 
@@ -41,13 +43,14 @@ const Navbar = () => {
         }
     };
 
-    // ========== Navigation function
+    // const dispatch = useDispatch()
     const navigate = useNavigate()
 
     // ========== Logout Handle
     const handleLogout = () => {
         localStorage.removeItem("currentUser")
-        navigate("/userCreate")
+        // dispatch(userDataReducers())
+        navigate("/")
     }
 
     return (

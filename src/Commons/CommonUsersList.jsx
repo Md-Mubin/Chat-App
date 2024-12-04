@@ -3,7 +3,7 @@ import React from 'react'
 const CommonUsersList = ({mainImage, mainName}) => {
     return (
         <>
-            <ul className='mt-6'>
+            <ul>
 
                 {/* =========== user infos  ===========*/}
                 <li className='flex items-center gap-10'>

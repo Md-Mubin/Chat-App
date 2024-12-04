@@ -63,7 +63,7 @@ const ForgetPassword = () => {
 
                         <div className="resetEmailError">{resetEmailError}</div>
 
-                        <Link className='goBack' to={'/userCreate'}>← Go back</Link>
+                        <Link className='goBack' to={'/'}>← Go back</Link>
 
                         <button onClick={handleResetPassword}>Reset Password</button>
 

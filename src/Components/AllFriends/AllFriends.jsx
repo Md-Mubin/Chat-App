@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CommonUsersList from '../../Commons/CommonUsersList'
 import CommonUsersButton_v1 from '../../Commons/CommonUsersButton_v1'
-import { getDatabase, onValue, ref } from 'firebase/database'
+import { getDatabase, onValue, ref, remove } from 'firebase/database'
 import { useSelector } from 'react-redux'
 
 const AllFriends = () => {
@@ -18,13 +18,18 @@ const AllFriends = () => {
             let array = []
             snapshot.forEach((datas) => {
                 if(datas.val().currentUserId == usersFromSlices.uid){
-                    array.push({ ...datas.val(), key: datas.key })
+                    array.push({friendName: datas.val().acceptUserName, friendImage: datas.val().acceptUserImg, friendUID: datas.val().acceptUserId, key: datas.key})
+                }else if(datas.val().acceptUserId == usersFromSlices.uid){
+                    array.push({friendName: datas.val().currentUserName, friendImage: datas.val().currentUserImg, friendUID: datas.val().currentUserId, key: datas.key})
                 }
             })
             setAllFriends(array)
         });
     }, [])
 
+    const handleFrienRemove=(unfriend)=>{
+        remove(ref(db, 'allFriends/') , unfriend)
+    }
 
     return (
         <>
@@ -34,8 +39,8 @@ const AllFriends = () => {
                     {
                         allFriends.map((items) => (
                             <ul key={items.key} className='w-[800px] flex justify-between items-center'>
-                                <CommonUsersList mainImage={items.acceptUserImg} mainName={items.acceptUserName} />
-                                <CommonUsersButton_v1 />
+                                <CommonUsersList mainImage={items.friendImage} mainName={items.friendName} />
+                                <CommonUsersButton_v1 commonclick={()=>handleFrienRemove(items.key)} buttonName={"Remove"} customDesign={"bg-red-300 hover:bg-red-600 duration-200"}/>
                             </ul>
                         ))
                     }
