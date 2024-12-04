@@ -10,6 +10,7 @@ import { FaUsersViewfinder } from 'react-icons/fa6'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
 import { userDataReducers } from '../../Slices/UserSlice'
+import { Bounce, toast } from 'react-toastify'
 
 const Navbar = () => {
 
@@ -50,6 +51,18 @@ const Navbar = () => {
     const handleLogout = () => {
         localStorage.removeItem("currentUser")
         dispatch(userDataReducers())
+
+        toast.success('Loged Out 😟', { // login successful toast massage
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+        });
     }
 
     return (
