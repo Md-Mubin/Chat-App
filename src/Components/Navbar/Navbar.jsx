@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Navbar.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { IoChatboxEllipsesOutline } from 'react-icons/io5'
 import { GoGear } from 'react-icons/go'
 import { GiExitDoor, GiThreeFriends } from 'react-icons/gi'
@@ -44,7 +44,7 @@ const Navbar = () => {
     };
 
     // const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     // ========== Logout Handle
     const handleLogout = () => {
