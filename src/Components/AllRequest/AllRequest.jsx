@@ -6,33 +6,37 @@ import { useSelector } from 'react-redux'
 
 const AllRequest = () => {
 
+    // ========== All Hooks
     const usersFromSlices = useSelector((state) => state.userData.value)
 
     const [allRequest, setAllRequest] = useState([])
 
-    const db = getDatabase()
+    const db = getDatabase() // database call variable
 
-
+    // ========== Rendering the data coming from firebase
     useEffect(() => {
-        const starCountRef = ref(db, 'friendRequest/');
-        onValue(starCountRef, (snapshot) => {
-            let array = []
-            snapshot.forEach((datas) => {
-                if (datas.val().receverId == usersFromSlices.uid) {
-                    array.push({ ...datas.val(), key: datas.key })
-                }
+
+        onValue(ref(db, "friendRequest/"), (snapshot) => {
+            let reqArray = []
+            snapshot.forEach((items) => {
+                items.forEach((child) => {
+                    if (child.val().receverId === usersFromSlices.uid) {
+                        reqArray.push({ ...child.val(), key: child.key })
+                    }
+                })
             })
-            setAllRequest(array)
-        });
+            setAllRequest(reqArray)
+        })
     }, [])
 
-
-    const handleRemove = (removeUser) => {
-        remove(ref(db, 'friendRequest/' + removeUser.key))
+    // ========= Removing Friend Request
+    const handleRemove = (removeRequest) => {
+        remove(ref(db, `friendRequest/${removeRequest.senderId}/${removeRequest.key}`))
     }
 
+    // ========= Accepting Friend Request
     const requestAccept = (confirmUser) => {
-        set(push(ref(db, 'allFriends/')), {
+        set(ref(db, `allFriends/${usersFromSlices.uid}/${confirmUser.senderId}`), {
             currentUserId: usersFromSlices.uid,
             currentUserImg: usersFromSlices.photoURL,
             currentUserName: usersFromSlices.displayName,
@@ -40,9 +44,8 @@ const AllRequest = () => {
             acceptUserName: confirmUser.senderName,
             acceptUserImg: confirmUser.senderPhoto,
         });
-        remove(ref(db, 'friendRequest/' + confirmUser.key))
+        remove(ref(db, `friendRequest/${confirmUser.senderId}/${confirmUser.key}`))
     }
-
 
     return (
         <>

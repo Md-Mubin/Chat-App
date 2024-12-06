@@ -13,6 +13,7 @@ import AllRequest from './Components/AllRequest/AllRequest';
 import AllFriends from './Components/AllFriends/AllFriends';
 import { useSelector } from 'react-redux';
 import LayOutTwo from './Layouts/LayOutTwo';
+import BlockLists from './Components/BlockLists/BlockLists';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Route path='/allUsers' element={<AllUsers />} />
             <Route path='/allRequests' element={<AllRequest />} />
             <Route path='/allFriends' element={<AllFriends />} />
+            <Route path='/blockList' element={<BlockLists/>}/>
           </Route>
         </Route>
 
