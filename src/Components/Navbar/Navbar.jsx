@@ -79,7 +79,7 @@ const Navbar = () => {
                     <Link className='hover:text-orange-500' to={"/allRequests"}><AiOutlineUsergroupAdd /> <span>All Requests</span> </Link>
                     <Link className='hover:text-green-500' to={"/allFriends"}><GiThreeFriends /> <span>All Friends</span> </Link>
                     <Link className='hover:text-[#b9328c]' to={"/blockList"}><FaUsersSlash /> <span>Block List</span> </Link>
-                    <Link className='hover:text-blue-500' to={"/massages"}><IoChatboxEllipsesOutline /> <span>Chats</span> </Link>
+                    <Link className='hover:text-blue-500' to={"/chat"}><IoChatboxEllipsesOutline /> <span>Chats</span> </Link>
                     <Link className='hover:text-purple-400' to={"/"}><FaRegUserCircle /> <span>Profile</span> </Link>
                     <Link className='hover:text-black dark:hover:text-white' to={"/settings"}><GoGear /> <span>Settings</span> </Link>
                     <button className='hover:text-red-600 h-fit' onClick={handleLogout}><GiExitDoor /> <span>Log Out</span> </button>
