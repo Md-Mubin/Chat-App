@@ -50,7 +50,7 @@ const ChatUserBox = () => {
         <>
             <section className='pt-20'>
                 <h1 className='text-4xl text-center mb-10'>Chat Users</h1>
-                <ul className='w-[600px] h-full bg-slate-300 rounded-2xl p-6'>
+                <ul className='w-[600px] h-[700px] bg-slate-300 rounded-2xl p-6'>
                     {
                         chatUsers.map((items) => (
                             <li onClick={()=>handleChatUser(items)} className='mt-4 hover:shadow-lg duration-200 rounded-xl'>

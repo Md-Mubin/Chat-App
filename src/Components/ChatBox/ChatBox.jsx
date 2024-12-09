@@ -42,9 +42,9 @@ const ChatBox = () => {
         <>
             <section className='pt-20'>
                 <h1 className='text-4xl text-center italic mb-10'>Chats</h1>
-                <ul className='w-[900px] h-full bg-slate-200 rounded-2xl p-6'>
+                <ul className='w-[900px] h-[700px] bg-slate-200 rounded-2xl p-6'>
                     <CommonUsersList mainName={chatUsers?.friendName} mainImage={chatUsers?.friendImage} />
-                    <ul className='w-full h-full bg-slate-100 rounded-xl mt-4 pt-4 px-4 overflow-y-scroll'>
+                    <ul className='w-full h-[550px] bg-slate-100 rounded-xl mt-4 pt-4 px-4 overflow-y-scroll'>
                         {
                             allmsg.map((items)=>(
                                 items.senderID == currentUsers.uid ?
