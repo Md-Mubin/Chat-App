@@ -19,11 +19,9 @@ const AllRequest = () => {
         onValue(ref(db, "friendRequest/"), (snapshot) => {
             let reqArray = []
             snapshot.forEach((items) => {
-                items.forEach((child) => {
-                    if (child.val().receverId === usersFromSlices.uid) {
-                        reqArray.push({ ...child.val(), key: child.key })
-                    }
-                })
+                if (items.val().receverId === usersFromSlices.uid) {
+                    reqArray.push({ ...items.val(), key: items.key })
+                }
             })
             setAllRequest(reqArray)
         })
@@ -31,20 +29,21 @@ const AllRequest = () => {
 
     // ========= Removing Friend Request
     const handleRemove = (removeRequest) => {
-        remove(ref(db, `friendRequest/${removeRequest.senderId}/${removeRequest.key}`))
+        remove(ref(db, "friendRequest/" + removeRequest.key))
     }
 
     // ========= Accepting Friend Request
     const requestAccept = (confirmUser) => {
-        set(ref(db, `allFriends/${usersFromSlices.uid}/${confirmUser.senderId}`), {
+        console.log(confirmUser)
+        set(push(ref(db, "allFriends/")), {
             currentUserId: usersFromSlices.uid,
             currentUserImg: usersFromSlices.photoURL,
             currentUserName: usersFromSlices.displayName,
             acceptUserId: confirmUser.senderId,
             acceptUserName: confirmUser.senderName,
             acceptUserImg: confirmUser.senderPhoto,
-        });
-        remove(ref(db, `friendRequest/${confirmUser.senderId}/${confirmUser.key}`))
+        })
+        remove(ref(db, "friendRequest/" + confirmUser.key))
     }
 
     return (
@@ -54,7 +53,7 @@ const AllRequest = () => {
                     <h1 className='text-center text-5xl mb-10 text-black dark:text-white'>All Friends Request</h1>
                     {
                         allRequest.map((item) => (
-                            <ul key={item.key} className='w-[800px] flex justify-between items-center'>
+                            <ul key={item.key} className='w-[800px] mt-4 flex justify-between items-center'>
                                 <CommonUsersList mainName={item.senderName} mainImage={item.senderPhoto} />
                                 <li className='flex gap-4'>
                                     <CommonUsersButton_v1 commonclick={() => requestAccept(item)} buttonName={"Accept"} customDesign={"bg-green-400 hover:bg-green-500"} />

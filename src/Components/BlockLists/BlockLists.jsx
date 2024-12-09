@@ -17,22 +17,20 @@ const BlockLists = () => {
     useEffect(() => {
         onValue(ref(db, `blockLists/`), (snapshot) => {
             let blockArray = []
-            snapshot.forEach((mainDatas) => {
-                mainDatas.forEach((datas) => {
+                snapshot.forEach((datas) => {
                     if (datas.val().currentUserID == usersFromSlices.uid) {
                         blockArray.push({ ...datas.val(), key: datas.key })
                     }
                 })
-            })
             setBlockList(blockArray)
         })
     }, [])
 
     // ========= Unblock Someone from Block List
     const handleUnblock=(unblock)=>{
-        remove(ref(db, `blockLists/${usersFromSlices.uid}/${unblock.key}`))
+        remove(ref(db, "blockLists/" + unblock.key))
 
-        set(ref(db, `allFriends/${usersFromSlices.uid}/${unblock.key}`),{
+        set(ref(db, "allFriends/" + unblock.key),{
             currentUserId: usersFromSlices.uid,
             currentUserImg: usersFromSlices.photoURL,
             currentUserName: usersFromSlices.displayName,

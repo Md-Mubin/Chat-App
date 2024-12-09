@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './AllUsers.css'
 import CommonUsersList from '../../Commons/CommonUsersList'
-import { getDatabase, onValue, ref, remove, set } from 'firebase/database'
+import { getDatabase, onValue, push, ref, remove, set } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import CommonUsersButton_v1 from '../../Commons/CommonUsersButton_v1'
 
@@ -21,6 +21,8 @@ const AllUsers = () => {
 
     // ========== Rendering the data coming from firebase
     useEffect(() => {
+
+        // ========= to ptint all the users 
         onValue(ref(db, 'allUsers/'), (snapshot) => {
             let arr = []
             snapshot.forEach((items) => {
@@ -31,40 +33,42 @@ const AllUsers = () => {
             setAllUsers(arr)
         });
 
-        onValue(ref(db, `friendRequest/${usersFromSlices.uid}`), (snapshot) => {
+        // ========= to check if the request has been send 
+        onValue(ref(db, "friendRequest/"), (snapshot) => {
             let reqArray = []
             snapshot.forEach((items) => {
-                if (items.key != usersFromSlices.uid) {
+                if (items.val().receverId == usersFromSlices.uid) {
+                    reqArray.push(items.val().senderId)
+                }else if(items.val().senderId == usersFromSlices.uid){
                     reqArray.push(items.val().receverId)
                 }
             })
             setSentRequest(reqArray)
         })
 
+        // ========= to check if any users is my friend
         onValue(ref(db, `allFriends/`), (snapshot) => {
             let friendArray = []
-            snapshot.forEach((mainDatas) => {
-                mainDatas.forEach((datas) => {
+                snapshot.forEach((datas) => {
                     if (datas.val().currentUserId == usersFromSlices.uid) {
                         friendArray.push({ friendUID: datas.val().acceptUserId })
                     } else if (datas.val().acceptUserId == usersFromSlices.uid) {
                         friendArray.push({ friendUID: datas.val().currentUserId })
                     }
                 })
-            })
             setFriend(friendArray)
         })
     }, [])
 
     // ========= Sending Friend Request 
     const handelAdd = (addUser) => {
-        set(ref(db, `friendRequest/${usersFromSlices.uid}/${addUser.userKeys}`), {
+        set(push(ref(db, "friendRequest/")), {
             senderId: usersFromSlices.uid,
             senderPhoto: usersFromSlices.photoURL,
             senderName: usersFromSlices.displayName,
             receverId: addUser.userKeys,
             receverName: addUser.userName,
-            reveverPhoto: addUser.userImage,
+            reveverPhoto: addUser.userImage
         });
 
         setSentRequest((prev) => [...prev, addUser.userKeys])
@@ -72,7 +76,7 @@ const AllUsers = () => {
 
     // ========= Removing Friend Request
     const handleRemoveRequest = (cancelRequest) => {
-        remove(ref(db, `friendRequest/${usersFromSlices.uid}/${cancelRequest}`))
+        remove(ref(db, "friendRequest/" , cancelRequest))
             .then(() => {
                 setSentRequest((prev) => prev.filter((key) => key !== cancelRequest))
             })

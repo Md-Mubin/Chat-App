@@ -50,47 +50,6 @@ const Navbar = () => {
     // navigate
     const navigate = useNavigate()
 
-    // database
-    // const db = getDatabase()
-
-    // const usersFromSlices = useSelector((state) => state.userData.value)
-
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-
-    //         onValue(ref(db, `blockMassage/`), (snapshot) => {
-    //             let block = []
-    //             snapshot.forEach((mainData) => {
-    //                 mainData.forEach((datas) => {
-    //                     if (datas.val().blockfriendid === usersFromSlices.uid && datas.val().currentUserName) {
-    //                         block.push(datas.val().currentUserName);
-    //                     }
-                       
-    //                 })
-    //             })
-
-    //             // setTimeout(() => {
-    //             block.forEach((names) => {
-    //                 setTimeout(()=>{
-
-    //                     toast.info(`You were blocked by ${names}`, {
-    //                         position: "top-right",
-    //                         autoClose: 2000,
-    //                         hideProgressBar: false,
-    //                         closeOnClick: true,
-    //                         pauseOnHover: true,
-    //                         draggable: true,
-    //                         progress: undefined,
-    //                         theme: "dark"
-    //                     })
-    //                 },2000)
-    //             })
-    //             // }, 1000)
-    //         })
-    //     },2000)
-    //     return ()=> clearTimeout(timer)
-    // }, [])
-
     // ========== Logout Handle
     const handleLogout = () => {
         localStorage.removeItem("currentUser")

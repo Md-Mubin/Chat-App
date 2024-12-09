@@ -17,52 +17,42 @@ const AllFriends = () => {
     useEffect(() => {
         onValue(ref(db, 'allFriends/'), (snapshot) => {
             let array = []
-            snapshot.forEach((maindatas) => {
-                maindatas.forEach((datas)=>{
+                snapshot.forEach((datas)=>{
                     if(datas.val().currentUserId == usersFromSlices.uid){
                         array.push({
                             friendName: datas.val().acceptUserName, 
                             friendImage: datas.val().acceptUserImg, 
                             friendUID: datas.val().acceptUserId, 
-                            key: datas.key, 
-                            path: maindatas.key
+                            key: datas.key
                         })
                     }else if(datas.val().acceptUserId == usersFromSlices.uid){
                         array.push({
                             friendName: datas.val().currentUserName, 
                             friendImage: datas.val().currentUserImg, 
                             friendUID: datas.val().currentUserId, 
-                            key: datas.key, 
-                            path: maindatas.key
+                            key: datas.key
                         })
                     }
                 })
-            })
             setAllFriends(array)
-        });
+        })
     }, [])
     
     // ========= Unfriend Someone from Friend List
     const handleFrienRemove=(unfriend)=>{
-        remove(ref(db, `allFriends/${unfriend.path}/${unfriend.key}`) )
+        remove(ref(db, "allFriends/" + unfriend.key))
     }
 
     // ========= Block Someone from Friend List
     const handleBlock=(blockUser)=>{
-        set(ref(db, `blockLists/${usersFromSlices.uid}/${blockUser.key}`),{
+        set(ref(db, "blockLists/" + blockUser.key),{
             blockfriendid: blockUser.friendUID,
             blockfriendName: blockUser.friendName,
             blockfriendImg: blockUser.friendImage,
             currentUserID : usersFromSlices.uid
         })
 
-        set(ref(db, `blockMassage/${usersFromSlices.uid}/${blockUser.key}`),{
-            blockfriendid: blockUser.friendUID,
-            currentUserID : usersFromSlices.uid,
-            currentUserName : usersFromSlices.displayName
-        })
-
-        remove(ref(db, `allFriends/${blockUser.path}/${blockUser.key}`))
+        remove(ref(db, "allFriends/" + blockUser.key))
     }
 
     return (
