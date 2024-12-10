@@ -8,11 +8,13 @@ import CommonUsersButton_v1 from '../../Commons/CommonUsersButton_v1'
 const AllUsers = () => {
 
     // ========== All Hooks
-    const [allUsers, setAllUsers] = useState([])
+    const [allUsers, setAllUsers] = useState([]) // for all user datas
 
-    const [sentRequest, setSentRequest] = useState([])
+    const [sentRequest, setSentRequest] = useState([]) // for sent request data key
 
-    const [friend, setFriend] = useState([])
+    const [reciveRequest, setReciveRequest] = useState([]) // for recive request data key
+
+    const [friend, setFriend] = useState([]) // for all friends data key
 
     const usersFromSlices = useSelector((state) => state.userData.value)
 
@@ -35,27 +37,29 @@ const AllUsers = () => {
 
         // ========= to check if the request has been send 
         onValue(ref(db, "friendRequest/"), (snapshot) => {
-            let reqArray = []
+            let sentArray = []
+            let reciveArray = []
             snapshot.forEach((items) => {
                 if (items.val().receverId == usersFromSlices.uid) {
-                    reqArray.push(items.val().senderId)
-                }else if(items.val().senderId == usersFromSlices.uid){
-                    reqArray.push(items.val().receverId)
+                    reciveArray.push(items.val().senderId)
+                } else if (items.val().senderId == usersFromSlices.uid) {
+                    sentArray.push(items.val().receverId)
                 }
             })
-            setSentRequest(reqArray)
+            setSentRequest(sentArray)
+            setReciveRequest(reciveArray)
         })
 
         // ========= to check if any users is my friend
         onValue(ref(db, `allFriends/`), (snapshot) => {
             let friendArray = []
-                snapshot.forEach((datas) => {
-                    if (datas.val().currentUserId == usersFromSlices.uid) {
-                        friendArray.push({ friendUID: datas.val().acceptUserId })
-                    } else if (datas.val().acceptUserId == usersFromSlices.uid) {
-                        friendArray.push({ friendUID: datas.val().currentUserId })
-                    }
-                })
+            snapshot.forEach((datas) => {
+                if (datas.val().currentUserId == usersFromSlices.uid) {
+                    friendArray.push({ friendUID: datas.val().acceptUserId })
+                } else if (datas.val().acceptUserId == usersFromSlices.uid) {
+                    friendArray.push({ friendUID: datas.val().currentUserId })
+                }
+            })
             setFriend(friendArray)
         })
     }, [])
@@ -76,7 +80,7 @@ const AllUsers = () => {
 
     // ========= Removing Friend Request
     const handleRemoveRequest = (cancelRequest) => {
-        remove(ref(db, "friendRequest/" , cancelRequest))
+        remove(ref(db, "friendRequest/", cancelRequest))
             .then(() => {
                 setSentRequest((prev) => prev.filter((key) => key !== cancelRequest))
             })
@@ -96,21 +100,27 @@ const AllUsers = () => {
 
                                     commonclick={friend.some(fr => fr.friendUID === userDatas.userKeys)
                                         ? null
-                                        : (sentRequest.includes(userDatas.userKeys)
+                                        : sentRequest.includes(userDatas.userKeys)
                                             ? () => handleRemoveRequest(userDatas.userKeys)
-                                            : () => handelAdd(userDatas))}
+                                            : reciveRequest.includes(userDatas.userKeys)
+                                                ? null
+                                                : () => handelAdd(userDatas)}
 
                                     buttonName={friend.some(fr => fr.friendUID === userDatas.userKeys)
                                         ? "Friend"
-                                        : (sentRequest.includes(userDatas.userKeys)
+                                        : sentRequest.includes(userDatas.userKeys)
                                             ? "Cancel request"
-                                            : "Send Request")}
+                                            : reciveRequest.includes(userDatas.userKeys)
+                                                ? "Request Recive"
+                                                : "Sent Request"}
 
                                     customDesign={friend.some(fr => fr.friendUID === userDatas.userKeys)
-                                        ? "bg-green-600 opacity-80 pointer-events-none"
-                                        : (sentRequest.includes(userDatas.userKeys)
+                                        ? "bg-green-600 opacity-40 pointer-events-none"
+                                        : sentRequest.includes(userDatas.userKeys)
                                             ? "bg-red-400 hover:bg-red-500"
-                                            : "bg-slate-400 hover:bg-slate-500")} />
+                                            : reciveRequest.includes(userDatas.userKeys)
+                                                ? "bg-slate-700 pointer-events-none"
+                                                : "bg-slate-400 hover:bg-slate-500"} />
                             </ul>
                         ))
                     }

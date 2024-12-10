@@ -7,6 +7,7 @@ import { getDatabase, onValue, push, ref, set } from 'firebase/database'
 const ChatBox = () => {
 
     const [text, setText] = useState("")
+    
     const [allmsg, setAllMsg] = useState([])
 
     const db = getDatabase()
