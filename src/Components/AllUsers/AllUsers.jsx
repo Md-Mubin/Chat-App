@@ -9,11 +9,10 @@ const AllUsers = () => {
 
     // ========== All Hooks
     const [allUsers, setAllUsers] = useState([]) // for all user datas
+    const [request , setRequest]  = useState([]) // for all the request checking
+    const [friend  , setFriend]   = useState([]) // for all friends data key
 
-    const [request, setRequest] = useState([]) // for all the request checking
-
-    const [friend, setFriend] = useState([]) // for all friends data key
-
+    // ========== Redux Slice Variable
     const usersFromSlices = useSelector((state) => state.userData.value)
 
     // ========== firebase real time Database
