@@ -1,5 +1,5 @@
 .registerSection{
-    @apply w-[700px] h-screen flex flex-col justify-center items-center bg-slate-200 
+    @apply w-[700px] h-screen flex flex-col justify-center items-center bg-slate-200 xl:translate-x-[220px] 2xl:translate-x-0
 }
 
 .registerSection h6{

@@ -2,9 +2,8 @@
     @apply flex items-center overflow-hidden bg-[url("/images/background.svg")] bg-cover bg-center bg-no-repeat
 }
 
-
 .welcomeRow{
-    @apply py-20  w-full h-screen flex flex-col items-center
+    @apply py-20  w-full h-screen flex flex-col items-center justify-center
 }
 
 .welcomeRow h1{

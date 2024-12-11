@@ -34,7 +34,6 @@ const AllRequest = () => {
 
     // ========= Accepting Friend Request
     const requestAccept = (confirmUser) => {
-        console.log(confirmUser)
         set(push(ref(db, "allFriends/")), {
             currentUserId: usersFromSlices.uid,
             currentUserImg: usersFromSlices.photoURL,
