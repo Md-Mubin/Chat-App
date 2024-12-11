@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './AllUsers.css'
 import CommonUsersList from '../../Commons/CommonUsersList'
-import { getDatabase, onValue, push, ref, remove, set } from 'firebase/database'
+import { get, getDatabase, onValue, push, ref, remove, set } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import CommonUsersButton_v1 from '../../Commons/CommonUsersButton_v1'
 
@@ -74,7 +74,7 @@ const AllUsers = () => {
 
     // ========= Removing Friend Request
     const handleRemoveRequest = (cancelRequest) => {
-        onValue(ref(db, "friendRequest/"), (snapshot) => {
+        get(ref(db, "friendRequest/")).then((snapshot) => {
             snapshot.forEach((items) => {
                 if (items.val().senderId + items.val().receverId === cancelRequest) {
                     remove(ref(db, `friendRequest/${items.key}`))
