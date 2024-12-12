@@ -37,7 +37,7 @@ const ChatBox = () => {
             })
             setAllMsg(massageArray)
         })
-    }, [chatUsers])
+    }, [db, chatUsers])
 
     return (
         <>
