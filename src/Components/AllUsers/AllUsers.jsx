@@ -9,8 +9,8 @@ const AllUsers = () => {
 
     // ========== All Hooks
     const [allUsers, setAllUsers] = useState([]) // for all user datas
-    const [request , setRequest]  = useState([]) // for all the request checking
-    const [friend  , setFriend]   = useState([]) // for all friends data key
+    const [request, setRequest] = useState([]) // for all the request checking
+    const [friend, setFriend] = useState([]) // for all friends data key
 
     // ========== Redux Slice Variable
     const usersFromSlices = useSelector((state) => state.userData.value)
@@ -74,16 +74,17 @@ const AllUsers = () => {
 
     // ========= Removing Friend Request
     const handleRemoveRequest = (cancelRequest) => {
-        get(ref(db, "friendRequest/")).then((snapshot) => {
-            snapshot.forEach((items) => {
-                if (items.val().senderId + items.val().receverId === cancelRequest) {
-                    remove(ref(db, `friendRequest/${items.key}`))
-                        .then(() => {
-                            setRequest((prev) => prev.filter((key) => key !== cancelRequest))
-                        })
-                }
+        get(ref(db, "friendRequest/"))
+            .then((snapshot) => {
+                snapshot.forEach((items) => {
+                    if (items.val().senderId + items.val().receverId === cancelRequest) {
+                        remove(ref(db, "friendRequest/" + items.key))
+                            .then(() => {
+                                setRequest((prev) => prev.filter((key) => key !== cancelRequest))
+                            })
+                    }
+                })
             })
-        })
     }
 
     return (
