@@ -8,7 +8,7 @@ const LayoutOne = () => {
             <div className="flex justify-center">
                 <Outlet />
                 <Navbar />
-            </div>
+            </div> 
         </>
     )
 }
